@@ -1,11 +1,11 @@
 import React,{useEffect,useState}from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import {View,StyleSheet, ScrollView, TextInput,Image,
+import {View,StyleSheet, ScrollView, TextInput,Image,Alert,
         Text,ActivityIndicator ,ImageStore,Dimensions,RefreshControl} from 'react-native';
 
-import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,
-    ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
+import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TextRecomandation,
+    ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,RecomandationButton,} from '../components'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import api from '../services/api';
@@ -13,6 +13,8 @@ import { TouchableOpacity, RectButton } from 'react-native-gesture-handler';
 import {useAuth} from '../contexts/auth';
 import {useNavigation} from '@react-navigation/native';
 import {useRoute} from '@react-navigation/native'
+
+import { FontAwesome5,AntDesign } from '@expo/vector-icons';
 
 
 export default function Search({  navigation }) {
@@ -56,7 +58,9 @@ export default function Search({  navigation }) {
         
     //     },[items]);
     
-  
+    function handleAlert(){
+        Alert.alert('Desculpe!', 'Essa função estará funcionando em um trabalho futuro!');
+    }
 
     async function handleFilter(){
         console.log("Deslogar");
@@ -90,7 +94,9 @@ export default function Search({  navigation }) {
         </InputSearch>
 
         <TouchableOpacity 
-        onPress = {handleSearch}> 
+        // onPress = {handleSearch}> 
+        onPress = {handleAlert}> 
+
         <Icon name="ios-search-sharp" size={40}/>
         </TouchableOpacity>
                 
@@ -108,20 +114,27 @@ export default function Search({  navigation }) {
 
 
             <MineBox >
-                <ScrollView>
-                <MineImage>
-                               
-                 </MineImage>
-               </ScrollView>
+               
             
             <DescriptionView >
-                <InfoTextBlack >Nenhum item selecionado!</InfoTextBlack>             
+                <InfoTextBlack >Nenhum item para filtrar!</InfoTextBlack>             
             </DescriptionView>    
-            {/* <AntDesign name="down" size={24} color="black" /> */}
+            <AntDesign name="down" size={35} color="black" />
             </MineBox>           
  
            
         </RectButton>
+
+
+        <RecomandationButton onPress ={handleAlert}>
+        <FontAwesome5 name="people-carry" size={150} color="black" />
+        <TextRecomandation>RECOMENDAÇÕES PARA VOCÊ</TextRecomandation>
+        </RecomandationButton>
+        
+
+
+
+        
 
           
     </>

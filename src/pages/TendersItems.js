@@ -1,5 +1,5 @@
 import React ,{useState,useEffect}from 'react';
-import { Image, View, ScrollView, Text, StyleSheet, Dimensions ,ActivityIndicator} from 'react-native';
+import { Image,Linking, View, ScrollView, Text, StyleSheet, Dimensions ,ActivityIndicator} from 'react-native';
 
 import { Feather, FontAwesome } from '@expo/vector-icons';
 
@@ -9,7 +9,10 @@ import {useRoute} from '@react-navigation/native'
 // import api from '../services/api';
 import api from '../services/api';
 
-import {BorderScreen} from '../components';
+
+import {ButtonGreen,ViewDetail,InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,BorderScreen,ImageContainer,
+  DescriptionText,MineImage,TendersPicture,TendersImage,TendersImage2,TitleItem,ImagesContainer,ButtonText,
+  Separator,ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,TendersBox} from '../components'
 
 import { useAuth } from '../contexts/auth'
 
@@ -23,7 +26,7 @@ export default function ItemDetails({navigation}) {
     const route = useRoute();
     const [items,setItems] = useState([]);
 
-    const [isSelected,setSelected] =useState(false);
+    const [isMatch,setMatch] =useState(false);
 
     const params = route.params;
 
@@ -31,14 +34,19 @@ export default function ItemDetails({navigation}) {
       useEffect(()=>{
         console.log(params.tenderTargedId),
         console.log(params.tenderItemId),
-         api.get(`/items/showSwap/${params.tenderTargedId}/${params.tenderItemId}`)
-        //  api.get(`/items/showSwap/${params.tenderItemId}/${params.tenderTargedId}`)
+        //  api.get(`/items/showSwap/${params.tenderTargedId}/${params.tenderItemId}`)
+         api.get(`/items/showSwap/${params.tenderItemId}/${params.tenderTargedId}`)
 
         .then(response => {
           setItems(response.data);
-          console.log("teste: " ,items)
+        
+        })
+         api.get(`/items/showMatchSwap/${params.tenderItemId}/${params.tenderTargedId}`)
+         .then(response => {
+          setMatch(response.data);
 
-          })
+
+        })
         },[]);
     
     if(!items){
@@ -48,210 +56,97 @@ export default function ItemDetails({navigation}) {
         </View>
         );
     }
+    function handleEnterWhatsApp(whatsapp) {
+      Linking.openURL(`https://api.whatsapp.com/send?phone=${whatsapp}`)
+
+    }
     
-    
-  return (   <>
-    <View>
-     {/* <Text style={styles.title}>{items.item_id}</Text> */}
-      
-    </View>
-  </>
-  
-    // <ScrollView style={styles.container}>
-    //    <BorderScreen>
-    // <Text style={styles.title}>{items.targed_item_id.name_item}</Text>
-    // <Text style={styles.title}>{items.item_id.name_item}</Text>
-
-
-    //   <View style={styles.imagesContainer}>
-    //     <ScrollView horizontal pagingEnabled>
-    //         {items.targed_item_id.images.map(image => {
-    //             return (
-    //                 <Image 
-    //                 key={image.id}
-    //                 style={styles.image} 
-    //                 source={{ uri: image.url }} />
-    //             );
-    //         })}
-    //     </ScrollView>
-    //   </View>
-
-    //   <View style={styles.detailsContainer}>
+  return (   
+  <>
+    { items.map((item) => (
+    //  <Text style={styles.title}>{item.item_id.name_item}</Text>
      
-        
-    //     <View style={styles.separator} />
+    
+  
+  
+    <ScrollView>
+       <BorderScreen>
+    <TitleItem>{item.targed_item_id.name_item}</TitleItem>
 
-    //     <Text style={styles.title}>Instruções para visita</Text>
-    //         <Text style={styles.description}>{items.targed_item_id.description}</Text>
-    //         <Text style={styles.description}>{items.targed_item_id.category}</Text>
-    //         {/* <Text style={styles.description}>{params.itemId}</Text>                 */}
+
+      <ImagesContainer >
+        <ScrollView horizontal pagingEnabled>
+            {item.targed_item_id.images.map(image => {
+                return (
+                    <ImageContainer 
+                    key={image.id}
+                    source={{ uri: image.url }} />
+                );
+            })}
+        </ScrollView>
+      </ImagesContainer>
+      <ViewDetail> 
+      <TitleItem>Informações:</TitleItem>
+      <Separator  />
+            <DescriptionText>Descrição: {'\n '+ item.targed_item_id.description}</DescriptionText>
+            <DescriptionText>Categoria: {item.targed_item_id.category}</DescriptionText>
+            {/* <Text style={styles.description}>{params.itemId}</Text>                 */}
             
 
            
-    //     {items.targed_item_id.user.name?
-    //       <>
-    //       <Text style={styles.title}>CONTATO</Text>
-    //       <Text style={styles.description}>{items.targed_item_id.user.name}</Text>
+        {isMatch?
+          <>
+          <Text/>
+          <TitleItem >Contato:</TitleItem>
+          <Separator  />
+          <DescriptionText>Nome: {item.targed_item_id.user.name}</DescriptionText>
 
-    //       <Text style={styles.description}>{items.targed_item_id.user.whatsapp}</Text>
+          <DescriptionText>Telefone: +{item.targed_item_id.user.whatsapp}</DescriptionText>
 
               
 
 
-    //       <RectButton style={styles.contactButton} onPress={() => {}}>
-    //         <FontAwesome name="whatsapp" size={30} color="#FFF" />
-    //         <Text style={styles.contactButtonText}>Entrar em contato</Text>
-    //       </RectButton>
-    //        <MineBox key = {items.item_id.item_id}>
-    //            <MineImage>
-    //                {items.item_id.images.map(image => {
-    //                return (
-    //                <ImgItem source={{ uri: image.url }} />
-    //                );
-    //            })}
-    //           </MineImage>
+          <ButtonGreen 
+            onPress={()=>{handleEnterWhatsApp(item.targed_item_id.user.whatsapp)}}>
+            <FontAwesome name="whatsapp" size={30} color="#FFF" />
+            <ButtonText> Entrar em contato</ButtonText>
+          </ButtonGreen>
+    
+          <DescriptionText >Entre em contato para trocar com seu</DescriptionText>
+           </>        
+          :
+          <>
+          <Separator  />
+          <DescriptionText >Liberaremos o contato quando a outra pessoa também tiver interesse em seu</DescriptionText>
+          </>
+          }
+          
+          <MineBox key = {item.item_id.item_id}>
+               <MineImage>
+                   {item.item_id.images.map(image => {
+                   return (
+                   <ImgItem source={{ uri: image.url }} />
+                   );
+               })}
+              </MineImage>
            
-    //        <DescriptionView >
-    //            <InfoTextBlack >{items.item_id.name_item}</InfoTextBlack>
+           <DescriptionView >
+               <InfoTextBlack >{item.item_id.name_item}</InfoTextBlack>
                
-    //        </DescriptionView>    
-    //        </MineBox>   
-    //        </>        
-    //       :
-    //       <View/>
-    //       }
+           </DescriptionView>    
+           </MineBox>  
   
 
    
         
         
-    //    </View>
-    //    </BorderScreen>
-    //  </ScrollView>
-   
+       </ViewDetail>
+       </BorderScreen>
+     </ScrollView>
+
+    ))}
+      
+    
+   </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
-  imagesContainer: {
-    height: 240,
-  },
-
-  image: {
-    width: Dimensions.get('window').width,
-    height: 240,
-    resizeMode: 'cover',
-  },
-
-  detailsContainer: {
-    padding: 24,
-  },
-
-  title: {
-    color: '#4D6F80',
-    fontSize: 30,
-  },
-
-  description: {
-    color: '#5c8599',
-    lineHeight: 24,
-    marginTop: 16,
-  },
-
-  mapContainer: {
-    borderRadius: 20,
-    overflow: 'hidden',
-    borderWidth: 1.2,
-    borderColor: '#B3DAE2',
-    marginTop: 40,
-    backgroundColor: '#E6F7FB',
-  },
-
-  mapStyle: {
-    width: '100%',
-    height: 150,
-  },
-
-  routesContainer: {
-    padding: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-
-
-  separator: {
-    height: 0.8,
-    width: '100%',
-    backgroundColor: '#D3E2E6',
-    marginVertical: 40,
-  },
-
-  scheduleContainer: {
-    marginTop: 24,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  },
-
-  scheduleItem: {
-    width: '48%',
-    padding: 20,
-  },
-
-  scheduleItemBlue: {
-    backgroundColor: '#E6F7FB',
-    borderWidth: 1,
-    borderColor: '#B3DAE2',
-    borderRadius: 20,
-  },
-
-  scheduleItemGreen: {
-    backgroundColor: '#EDFFF6',
-    borderWidth: 1,
-    borderColor: '#A1E9C5',
-    borderRadius: 20,
-  },
-  scheduleItemRed: {
-    backgroundColor: '#FEF6F9',
-    borderWidth: 1,
-    borderColor: '#FFBCD4',
-    borderRadius: 20,
-  },
-
-  scheduleText: {
-    fontSize: 16,
-    lineHeight: 24,
-    marginTop: 20,
-  },
-
-  scheduleTextBlue: {
-    color: '#5C8599'
-  },
-  scheduleTextRed: {
-    color: '#FF669D'
-  },
-
-  scheduleTextGreen: {
-    color: '#37C77F'
-  },
-
-  contactButton: {
-    backgroundColor: '#3CDC8C',
-    borderRadius: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 56,
-    marginTop: 40,
-  },
-
-  contactButtonText: {
-    color: '#FFF',
-    fontSize: 16,
-    marginLeft: 16,
-  }
-})

@@ -24,7 +24,7 @@ export default function Perfil({route,navigation}){
 
     function handlePerfilEdit(){
     // navigation.navigate('PerfilEdit');
-    Alert.alert('Editar Perfil');
+    Alert.alert('Editar Perfil','Desculpe! Essa função estará funcionando em um trabalho futuro!');
     }
     function handleSignOut(){
         // signOut()
@@ -46,7 +46,7 @@ export default function Perfil({route,navigation}){
       
     }
     function handleSettings(){
-        Alert.alert('Configuração');
+        Alert.alert('Configuração','Desculpe! Essa função estará funcionando em um trabalho futuro!');
     }
 
     // useEffect( () => {

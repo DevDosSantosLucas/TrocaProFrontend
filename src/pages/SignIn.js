@@ -5,7 +5,7 @@ import * as React from 'react'
 // import styled from 'styled-components'
 import { useFormik } from 'formik'
 
-import{Loading,Screen,Img,LoginBox,Input,ButtonSend,ButtonBack,ButtonText} from '../components/index'
+import{Loading,Screen,Img,LoginBox,Input,ButtonSend,ButtonBack,ButtonText,ImageLogo} from '../components/index'
 import {
   View,
   Text,
@@ -81,6 +81,9 @@ export const SignIn  = () => {
 
   return (
     <Screen>
+       <ImageLogo 
+        source={require('../../assets/splash.png')}/>
+        
       <LoginBox>
         
 

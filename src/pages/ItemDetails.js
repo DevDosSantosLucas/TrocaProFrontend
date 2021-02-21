@@ -9,7 +9,8 @@ import {useRoute} from '@react-navigation/native'
 // import api from '../services/api';
 import api from '../services/api';
 
-import {BorderScreen,TitleItem,ImagesContainer,ImageContainer,ViewDetail} from '../components';
+import {BorderScreen,TitleItem,ImagesContainer,ImageContainer,ViewDetail,
+        ButtonGreen,TextButtonGreen} from '../components';
 
 import { useAuth } from '../contexts/auth'
 
@@ -82,8 +83,9 @@ export default function ItemDetails({navigation}) {
     
   return (
    
-    <>
+  
        <BorderScreen>
+       
     <TitleItem> {targedItem.name_item}</TitleItem>
 
       <ImagesContainer>
@@ -111,19 +113,21 @@ export default function ItemDetails({navigation}) {
 
 
         {params.itemId?
-        <RectButton style={styles.contactButton} onPress={handleTrySwapItem}>
+        <ButtonGreen onPress={handleTrySwapItem}>
 
         <FontAwesome name="handshake-o" size={30} color="#FFF" />
-          <Text style={styles.contactButtonText}>TENTAR TROCAR!</Text>
-        </RectButton>
+          <TextButtonGreen style={styles.TextButtonGreen}>TENTAR TROCAR!</TextButtonGreen>
+        </ButtonGreen>
         :
         <View/>
         }
  
       </ViewDetail>
+      
       </BorderScreen>
+  
     
-   </>
+   
   )
 }
 

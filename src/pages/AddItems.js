@@ -33,13 +33,6 @@ export default function AddItems() {
    
     async function handleCreateItem(){
 
-    //   useEffect(()=>{
-   
-    
-
-       
-    // },[]);
-
         try{
         const data = new FormData();
         data.append('user_id',user.user_id);
@@ -102,10 +95,12 @@ export default function AddItems() {
 }
 
   return (
-    
+    <>
+    <Text style={styles.title}>Trocar um Produto</Text>
+   
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 24 }}>
-    <BorderScreen>
-      <Text style={styles.title}>Trocar um Produto</Text>
+    
+      
 
       {/* <Text style={styles.label}>Nome</Text>      */}
         
@@ -114,6 +109,7 @@ export default function AddItems() {
           {
               images.map(image =>{
                   return(
+                    
                     <Image 
                      key = {image}
                      source = {{uri: image}}
@@ -193,12 +189,12 @@ export default function AddItems() {
 
 
       <ButtonSend  onPress={handleCreateItem}>
-        <ButtonText>Publicar</ButtonText>
+        <ButtonText>Anunciar</ButtonText>
       </ButtonSend>
 
-      </BorderScreen>
+      
     </ScrollView>
-  
+</>
   )
 }
 

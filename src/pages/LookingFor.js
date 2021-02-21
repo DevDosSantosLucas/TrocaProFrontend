@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {View,StyleSheet, ScrollView, TextInput,Image,
         Text,ActivityIndicator ,ImageStore,Dimensions,RefreshControl} from 'react-native';
 
-import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,
-    ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
+import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TitleItem,
+    ImgItem1,ImageContainer, ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Filter from './Filter'
@@ -24,7 +24,7 @@ export default function LookingFor({  navigation }) {
 
     const {user,signOut,loading} = useAuth();
     // const [update,setUpdate] = useState(true);
-    const [items, setItems] = useState([]);
+    // const [items, setItems] = useState([]);
     const [item, setItem] = useState([]);
 
     const [isItemFound,setItemFound]= useState(false);
@@ -80,33 +80,24 @@ export default function LookingFor({  navigation }) {
     <>
     
         
-        <ScrollItemBox >        
-
-            <View>
-         <MineBox key = {item.item_id}>
-             <MineImage>
-                 {/* {item.images.map(image => {
-                 return (
-                 <ImgItem source={{ uri: image.url }} />
-                 );
-             })} */}
-             {/* {item.images.map(image => {
-                return (
-                    <Image 
-                    key={image.image_id}
-                    // style={styles.image} 
-                    source={{ uri: image.url }} />
-                );
-            })} */}
-            </MineImage>
-         
-         <DescriptionView >
-             <InfoTextBlack >{item.name_item}</InfoTextBlack>
-             
-         </DescriptionView>    
-         </MineBox>           
-         </View>
-
+        <ScrollItemBox >  
+        <TitleItem> Items Relacionados:</TitleItem>
+        <MineBox >
+           
+               {/* <MineImage>
+                   {item.images.map(image => {
+                   return (
+                   <ImgItem source={{ uri: image.url }} />
+                   );
+               })}
+              </MineImage> */}
+           
+           <DescriptionView >
+               <InfoTextBlack >Selecionado:{item.name_item}</InfoTextBlack>
+               
+           </DescriptionView>    
+           </MineBox>           
+      
             <View>
             { targedItems.map((targedItem) => (
             <RectButton onPress ={()=>handleItem(targedItem.item_id)}>                       
@@ -114,7 +105,7 @@ export default function LookingFor({  navigation }) {
                     <ImageView>
                         {targedItem.images.map(image => {
                         return (
-                        <ImgItem source={{ uri: image.url }} />
+                        <ImgItem1 source={{ uri: image.url }} />
                         );
                     })}
                 </ImageView>
@@ -132,13 +123,6 @@ export default function LookingFor({  navigation }) {
             ))}
 
         </View>
-{/* 
-        <View>
-            <Text> NADA FOI ENCONTRADO PARA</Text>
-            <Text> QUE POSSA TROCAR COM SEU PRODUTO</Text>
-
-            <Text>TENTE NOVAMENTE MAIS TARDE! </Text>
-            </View> */}
     
         </ScrollItemBox>
      

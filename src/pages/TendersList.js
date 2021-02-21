@@ -32,8 +32,9 @@ const Tenders = ({navigation})=>{
      console.log("VER PRODUTO NEGOCIADO");
 
      navigation.navigate("TendersItems",{
+        tenderTargedId,
         tenderItemId,
-        tenderTargedId
+        
      });
     
     }
@@ -43,7 +44,7 @@ const Tenders = ({navigation})=>{
         .then(response => {
             setTargedItems(response.data);
         })
-    },[]);
+    },[targedItems]);
     //   },[params.item_id]);
   
       if(!targedItems){
@@ -71,27 +72,33 @@ const Tenders = ({navigation})=>{
                  <TendersBox key = {targedItem.item_id.item_id}>
                     <TendersImage>
                         {targedItem.item_id.images.map(image => {
-                        return (
-                            <>
-                        <TendersPicture source={{ uri: image.url }} />
-                        <InfoTextBlack >{targedItem.targed_item_id.name_item}</InfoTextBlack>
-                        </>
-                        );
-                    })}
-                </TendersImage>
-             
-                <TendersImage>
-                        {targedItem.targed_item_id.images.map(image => {
+                            // <View key ={index}></View>
+                        // if(index=0){
                         return (
                             <>
                         <TendersPicture source={{ uri: image.url }} />
                         <InfoTextBlack >{targedItem.item_id.name_item}</InfoTextBlack>
                         </>
                         );
+                        // }
+                    })}
+                </TendersImage>
+             
+                <TendersImage>
+                        {targedItem.targed_item_id.images.map((image) => {
+                            
+                        return (
+                            <View>
+                            {/* //  key ={index} */}
+                        <TendersPicture source={{ uri: image.url }} />
+                        <InfoTextBlack >{targedItem.targed_item_id.name_item}</InfoTextBlack>
+                             </View>
+                        );
+                    
                     })}
                 </TendersImage>
 
-                <AntDesign name="retweet" size={100} color="black"style={{right: '90%'}} />
+                <AntDesign name="retweet" size={100} color="black"style={{right: '85%'}} />
 
  
                 </TendersBox> 

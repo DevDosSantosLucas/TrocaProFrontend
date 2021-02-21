@@ -10,7 +10,8 @@ const AuthRoutes = ()=>(
     <AuthStack.Navigator>
         <AuthStack.Screen options={{ headerShown:false}}
         name = "SignIn" component = {SignIn}/>
-        <AuthStack.Screen name = "SignUp" component = {SignUp}/>
+        <AuthStack.Screen options={{title :"Cadastrar"}}
+         name = "SignUp" component = {SignUp}/>
 
     </AuthStack.Navigator>
 );

@@ -4,7 +4,7 @@ import {View,Button,StyleSheet,Text} from 'react-native';
 import api from '../services/api'
 import {useAuth} from '../contexts/auth';
 
-import {ImageView,ScrollItemBox,MineBox,MineImage,
+import {ImageView,ScrollItemBox,MineBox,MineImage,ImgItem1,
     ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
 import {  RectButton } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
@@ -48,7 +48,6 @@ const AddedItems = ({navigation})=>{
  
     
         <ScrollItemBox >
-        
         {items.map(item => (
        <RectButton onPress ={()=>handleFilterItem(item.item_id)}>                       
             
@@ -64,6 +63,7 @@ const AddedItems = ({navigation})=>{
                    <ImgItem source={{ uri: image.url }} />
                    );
                })}
+         
               </MineImage>
            
            <DescriptionView >

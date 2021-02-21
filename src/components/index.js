@@ -6,15 +6,19 @@ import {
     Image,Dimensions
   //   ActivityIndicator,
   } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { RectButton, ScrollView } from 'react-native-gesture-handler'
 
 
   import styled from 'styled-components'
   
-export const Screen = styled(View)`
+export const Screen = styled(ScrollView)`
 flex: 1;
-padding-top:40px;
+padding-top:50px;
 backgroundColor: #F5F5F5;
+border-width:5px;
+borderColor: #008b8b;
+border-radius:8px ;
+margin-vertical:30px;
 `
 export const BorderScreen= styled(ScrollView)`
 flex: 1;
@@ -22,8 +26,6 @@ backgroundColor: #F5F5F5;
 border-width: 5px;
 border-color: #008B8B;
 `
-// align-items: center;
-// justify-content: center;
 export const ScreenModal = styled(View)`
 background: #FFF;
 margin-horizontal: 10px;
@@ -38,7 +40,14 @@ height: 100px;
 width: 100px;
 resizeMode: cover;
 `
+export const ImgItem1 = styled(Image)`
+border-width: 5px;
+height: 200px;
+width: 200px;
+resizeMode: cover;
+align-self: center;
 
+`
 export const LoginBox = styled(View)`
 flex: 1;
 padding: 20px;
@@ -139,12 +148,29 @@ align-items: center;
 margin:10px;
 `
 export const ButtonBack = styled(TouchableOpacity)`
-background: #ffc700;
+background: #D2691E;
 padding: 12px;
 border-radius: 8px;
 align-items: center;
 margin:10px;
 `
+export const ButtonGreen = styled(TouchableOpacity)`
+backgroundColor: #3CDC8C;
+borderRadius: 20px;
+flexDirection: row;
+justifyContent: center;
+alignItems: center;
+height: 56px;
+marginTop: 40px;
+`
+
+export const TextButtonGreen =styled(Text)`
+color: #FFF;
+font-weight: bold;
+fontSize: 16px;
+marginLeft: 16px;
+`
+
 
 export const OpacityButton = styled(TouchableOpacity)`
 flex:1;
@@ -193,7 +219,11 @@ height: 250px;
 width: ${Dimensions.get('window').width};
 resizeMode: cover;
 `
-
+export const ImageLogo = styled(Image)`
+height: 200px;
+width: ${Dimensions.get('window').width};
+resizeMode: contain;
+`
 
 export const ViewDetail = styled(View)`
  padding: 20px;
@@ -228,4 +258,30 @@ width: 150px;
 resizeMode: cover;
 border-width:2px;
 borderColor: #999;
+`
+
+export const RecomandationButton = styled(RectButton)`
+padding:10px;
+align-items: center; 
+margin:10px;
+background: #008b8b;
+`
+
+export const TextRecomandation = styled(Text)`
+color: #FFF;
+font-size: 16px;
+fontWeight: bold;
+bottom:35%;
+`
+export const Separator = styled(View)`
+  align-self: center; 
+  height: 0.8px;
+  width: 80%;
+  backgroundColor: #D3E2E6;
+  marginVertical: 10px;
+`
+export const DescriptionText = styled(Text)` 
+color: #5c8599;
+font-size: 22px;
+marginTop: 20px;
 `

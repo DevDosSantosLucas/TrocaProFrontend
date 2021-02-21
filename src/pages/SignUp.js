@@ -28,10 +28,13 @@ import  api from '../services/api'
 import { useAuth } from '../contexts/auth'
 
 
-export const SignUp  = () => {
-        const {signIn} = useAuth();
-
-        const [uf,setUf] =useState('') ;
+export default function SignUp   ()  {
+        // const {signIn} = useAuth();
+        const [whatsapp,setWhatsapp] = useState('') ; 
+        const [name,setName] = useState('') ;
+        const [city,setCity] = useState('') ;
+        const [password,setPassword] = useState('') ;
+        const [uf,setUf] = useState('') ;
 
         const pickerRef = React.useRef()
 
@@ -39,26 +42,37 @@ export const SignUp  = () => {
   // const route = useRoute();
 
 
-  const formik = useFormik({
-    initialValues: {
-      whatsapp: '',
-      name:'',
-      uf:'',
-      city:'',
-      password: '',
-    },
+  // const formik = useFormik({
+  //   initialValues: {
+  //     whatsapp: '',
+  //     name:'',
+  //     uf:'',
+  //     city:'',
+  //     password: '',
+  //   },
 
-    onSubmit: async data => {
-      try {
-        const  response = await api.post("signup",data)
+    // onSubmit: async data => {
+      async function handleSubmit() {
+
+        try {
+        const data = new FormData();
+        data.append('whatsapp',whatsapp);
+        data.append('name',name);
+        data.append('uf', uf);
+        data.append('city', city);
+        data.append('password', password);
+      
+     
+
+        const  response = await api.post('signup',data)
         console.log("teste:",response.data)
         showMessage({
           message: 'Cadastro efetuado com sucesso!',
           type: 'success'
         })
 
-        signIn(data)
-        // navigation.navigate("Profile");
+        // signIn(data)
+        navigation.navigate("SignIn");
         
       } catch (error) {
         // console.log("login Failed Test")
@@ -68,9 +82,9 @@ export const SignUp  = () => {
           //error.response.data,
           type: 'warning'
       })
-      }
-    },
-  })
+      
+    
+    }}
 
   return (
     <Screen>
@@ -80,16 +94,21 @@ export const SignUp  = () => {
           keyboardType={'numeric'}
           name="whatsapp"
           placeholder="Digite seu whatsapp"
-          value={formik.values.whatsapp}
-          onChangeText={formik.handleChange('whatsapp')}
+          value={whatsapp}
+          onChangeText={setWhatsapp}
+
+          // value={formik.values.whatsapp}
+          // onChangeText={formik.handleChange('whatsapp')}
         />
 
         <Input
           name="name"
           placeholder="Digite seu nome"
-          value={formik.values.name}
-          onChangeText={formik.handleChange('name')}
-        />
+          value={name}
+          onChangeText={setName}/>
+           {/* value={formik.values.name} */}
+          {/*  onChangeText={formik.handleChange('name')} */}
+        
 
         {/* <Input
           name="uf"
@@ -108,6 +127,7 @@ export const SignUp  = () => {
       <RNPickerSelect
           ref={r => pickerRef.current = r}
           value={uf}//{formik.values.uf}
+          // selectedValue={formik.values.uf}
           placeholder={{ label: 'Selecione seu Estado', value: uf }}
           onValueChange={uf => setUf(uf)}
 
@@ -148,21 +168,26 @@ export const SignUp  = () => {
           name="city"
           placeholder="Digite sua cidade"
           autoCapitalize= {'characters'}
-          value={formik.values.city}
-          onChangeText={formik.handleChange('city')}
+          value={city}
+          onChangeText={setCity}
+          // value={formik.values.city}
+          // onChangeText={formik.handleChange('city')}
         />
 
         <Input
           name="password"
           placeholder="Digite sua senha"
-          value={formik.values.password}
-          onChangeText={formik.handleChange('password')}
+          // value={formik.values.password}
+          // onChangeText={formik.handleChange('password')}
           secureTextEntry
+          value={password}
+          onChangeText={setPassword}
         />
 
         
 
-        <ButtonSend onPress={formik.handleSubmit}>
+        {/* <ButtonSend onPress={formik.handleSubmit}> */}
+        <ButtonSend onPress={handleSubmit}>
          
             
        
@@ -173,4 +198,3 @@ export const SignUp  = () => {
     </Screen>
   )
 }
-export default SignUp;
