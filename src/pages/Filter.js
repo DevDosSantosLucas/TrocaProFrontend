@@ -14,7 +14,7 @@ import RNPickerSelect ,{Picker }from 'react-native-picker-select'
 
 
 
-import {ImageView,ScrollItemBox,
+import {ImageView,ScrollItemBox,NameItemView,
   ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
 // import {  RectButton } from 'react-native-gesture-handler';
 
@@ -70,10 +70,6 @@ export default function Filter() {
       <>
        <OpacityButton  onPress={handleNavigateBack}/>
 
-      
-
-      
-
       <ScreenModal >
         <ScrollView>
       {items.map(item => (
@@ -85,16 +81,16 @@ export default function Filter() {
                  return (
                    <>
 
-                 <ImgItem source={{ uri: image.url }} />
+                 <ImgItem key ={image.image_id} source={{ uri: image.url }} />
                  </>
                  );
              })}
             </MineImage>
          
-         <DescriptionView >
+         <NameItemView >
              <InfoTextBlack >{item.name_item}</InfoTextBlack>
              
-         </DescriptionView>    
+         </NameItemView>    
          </MineBox>           
 
         

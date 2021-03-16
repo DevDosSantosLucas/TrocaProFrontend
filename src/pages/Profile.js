@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {useAuth} from '../contexts/auth';
 
 import{ProfileBox,Screen,Img,LoginBox,Input,ButtonSend,
-    InfoTextWhite,InputLong,ButtonText,IconsProfile} from '../components'
+    ProfilePicture,InfoTextWhite,InputLong,ButtonText,IconsProfile} from '../components'
           
 import { FontAwesome5,SimpleLineIcons,MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -49,32 +49,16 @@ export default function Perfil({route,navigation}){
         Alert.alert('Configuração','Desculpe! Essa função estará funcionando em um trabalho futuro!');
     }
 
-    // useEffect( () => {
-    //     async function loadItems() {
-    //         const response = await api.post('/sessions', {
-    //             headers: {
-    //                 email: _id
-    //             }
-    //         })
-
-    //                  // NOT BEST SOLUTION
-    //             // const shuffleArray = arr => arr.sort(() => Math.random() - 0.5)
-
-    //              //setUsers(shuffleArray(response.data))
-    //         setItems(response.data)
-    //     }
-    //     loadItems()
-    // }, [_id]);
-
     return(
         
     // <Screen>
          <ProfileBox >
-             
+                <ProfilePicture>
                 <Icon name = 'user-circle' size = {80}/> 
+                </ProfilePicture>
             <View>
                 <InfoTextWhite >{user.name}</InfoTextWhite>
-                <InfoTextWhite >{user.whatsapp}</InfoTextWhite>
+                <InfoTextWhite >+{user.whatsapp}</InfoTextWhite>
                 <InfoTextWhite >{user.uf}</InfoTextWhite>
                 <InfoTextWhite >{user.city}</InfoTextWhite>
             </View>

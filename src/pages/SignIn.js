@@ -5,7 +5,7 @@ import * as React from 'react'
 // import styled from 'styled-components'
 import { useFormik } from 'formik'
 
-import{Loading,Screen,Img,LoginBox,Input,ButtonSend,ButtonBack,ButtonText,ImageLogo} from '../components/index'
+import{Loading,Label,ScreenLogin,Img,LoginBox,Input,ButtonSend,ButtonBack,ButtonText,ImageLogo} from '../components/index'
 import {
   View,
   Text,
@@ -80,7 +80,7 @@ export const SignIn  = () => {
   }
 
   return (
-    <Screen>
+    <ScreenLogin>
        <ImageLogo 
         source={require('../../assets/splash.png')}/>
         
@@ -88,15 +88,16 @@ export const SignIn  = () => {
         
 
         {/* {state && <Text>{state}</Text>} */}
-
+        <Label>Número do WhatsApp (Só números)</Label>
         <Input
           name="whatsapp"
-          placeholder="Digite seu telefone"
+          placeholder="ex : ( 5516999999999 )"
           keyboardType ={"numeric"}
           value={formik.values.whatsapp}
           onChangeText={formik.handleChange('whatsapp')}
         />
-
+        
+        <Label>Senha</Label>
         <Input
           name="password"
           placeholder="Digite sua senha"
@@ -118,7 +119,7 @@ export const SignIn  = () => {
         </ButtonBack>
 
       </LoginBox>
-    </Screen>
+    </ScreenLogin>
   )
 }
 export default SignIn;

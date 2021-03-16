@@ -7,18 +7,18 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 
 import * as ImagePicker from 'expo-image-picker';
 import api from '../services/api';
-import{Loading,Screen,Img,LoginBox,Input,ButtonSend,InputLong,ButtonText} from '../components'
+import{UploadedImagesContainer,PlusScreen,UploadedImage,ImagesInput,InputPicker,TitleItem,Label,Separator,Input,ButtonSend,InputLong,ButtonText} from '../components'
 import {useAuth} from '../contexts/auth';
 import RNPickerSelect from 'react-native-picker-select'
 import {update} from './LookingFor'
-import { MaterialIcons } from '@expo/vector-icons';
-import {BorderScreen} from '../components'
+import { MaterialIcons ,AntDesign} from '@expo/vector-icons';
 
 
 
 export default function AddItems() {
    const {user,signOut} = useAuth();
 
+    const [count,setCount]=useState(0);
     const [name,setName] =useState('');
     const [description,setDescription] =useState('');
     const [price,setPrice] =useState('');
@@ -39,7 +39,7 @@ export default function AddItems() {
         data.append('name_item',name);
         data.append('category', category);
         data.append('description', description);
-        data.append('price', String(price));
+        data.append('price', price);
 
         images.forEach((image, index) =>{
             data.append('images',{
@@ -49,23 +49,25 @@ export default function AddItems() {
             })
         })
         await api.post('items/create',data)
-        
+
+        setCount(0)
         setName('')
         setDescription('')
-        setPrice(0)
+        setPrice('')
         setCategory('')
         setImages([])
         // setLoading(true)
-        navigation.navigate('NavTabs');
+        navigation.navigate('Search');
         showMessage({
           message: 'item adicionado com sucesso!',
           type: 'success'
       })
       }
       catch(error){
+        console.log(error,name,price,category)
         showMessage({
           message: 'Erro ao cadastrar! \nPor favor, informe os dados corretamente!',
-          //error.response.data,
+          // message: error.response.data,
           type: 'warning'
       })
       }
@@ -90,39 +92,53 @@ export default function AddItems() {
     }
    
     const{uri: image } = result;
-    
+    setCount(count+1)
     setImages([...images,image]);
-}
+  }
+  function handleRemoveImages(){
+  setImages([])
+  setCount(0)
+  }
 
   return (
     <>
-    <Text style={styles.title}>Trocar um Produto</Text>
+    <Text/>
+    <Separator/>
+    <TitleItem>Trocar um Produto</TitleItem>
+    <Separator/>
    
-    <ScrollView style={styles.container} contentContainerStyle={{ padding: 24 }}>
+    <PlusScreen >
     
-      
-
-      {/* <Text style={styles.label}>Nome</Text>      */}
+    
         
-      <Text style={styles.label}>Fotos</Text>
-      <View style = { styles.uploadedImagesContainer}>
+      <Label>Fotos {count}/5</Label>
+      <UploadedImagesContainer horizontal paging>
           {
               images.map(image =>{
                   return(
                     
-                    <Image 
+                    <UploadedImage 
                      key = {image}
                      source = {{uri: image}}
-                     style = {styles.uploadedImage}
                     />
                   );    
               })
           }
-      </View>
-
-      <TouchableOpacity style={styles.imagesInput} onPress={handleSelectImages}>
+      </UploadedImagesContainer>
+      {count < 5 ?
+      <ImagesInput  onPress={handleSelectImages}>
       <MaterialIcons name="add-a-photo" size={30} color="#008B8B" />
-      </TouchableOpacity>
+      </ImagesInput>
+      :
+
+      <ImagesInput  onPress={handleRemoveImages}>
+      {/* <MaterialIcons name="add-a-photo" size={30} color="#CCC" /> */}
+      <AntDesign name="delete" size={20} color="red" />
+      <Label>Remover todas as imagens</Label>
+      </ImagesInput>
+      }
+
+      <Label>Nome</Label>
         <Input
         name="itemName"
         placeholder="Nome de seu produto"
@@ -130,7 +146,8 @@ export default function AddItems() {
         onChangeText = {setName}
         />
 
-<View>
+      <Label>Preço</Label>
+      <InputPicker>
        <TouchableOpacity
         onPress={() => {
            if (pickerRef.current) {
@@ -141,42 +158,71 @@ export default function AddItems() {
       <RNPickerSelect
           ref={r => pickerRef.current = r}
           value={price}
-          placeholder={{ label: 'Insira um preço aproximado ', value: price }}
+          placeholder={{ label: 'Insira um preço aproximado: ', value: price }}
           onValueChange={price => setPrice(price)}
 
           items={[                       
-             { label: '    0,00 R$ -   50,00 R$ ', value:  1 },
-             { label: '   50,00 R$ -  100,00 R$ ', value:  2 }, 
-             { label: '  100,00 R$ -  150,00 R$ ', value:  3 }, 
-             { label: '  150,00 R$ -  200,00 R$ ', value:  4 }, 
-             { label: '  200,00 R$ -  250,00 R$ ', value:  5 }, 
-             { label: '  250,00 R$ -  300,00 R$ ', value:  6 }, 
-             { label: '  300,00 R$ -  350,00 R$ ', value:  7 }, 
-             { label: '  350,00 R$ -  400,00 R$ ', value:  8 }, 
-             { label: '  400,00 R$ -  450,00 R$ ', value:  9 }, 
-             { label: '  450,00 R$ -  500,00 R$ ', value: 10 }, 
-             { label: '  500,00 R$ -  550,00 R$ ', value: 11 }, 
-             { label: '  550,00 R$ -  600,00 R$ ', value: 12 }, 
-             { label: '  600,00 R$ -  650,00 R$ ', value: 13 }, 
-             { label: '  650,00 R$ -  700,00 R$ ', value: 14 }, 
-             { label: '  700,00 R$ -  750,00 R$ ', value: 15 }, 
-             { label: '  750,00 R$ -  800,00 R$ ', value: 16 }, 
-             { label: '  800,00 R$ -  850,00 R$ ', value: 17 }, 
-             { label: '  850,00 R$ -  900,00 R$ ', value: 18 }, 
-             { label: '  900,00 R$ -  950,00 R$ ', value: 19 }, 
-             { label: '  950,00 R$ - 1000,00 R$ ', value: 20 }, 
-             { label: ' OUTRO VALOR ', value: 21 }, 
+             { label: 'De R$   0,00 até R$   49,00 ', value:'De-R$0,00-a-R$49,00'    },
+             { label: 'De R$  50,00 até R$   99,00 ', value:'De-R$50,00-a-R$99,00'   }, 
+             { label: 'De R$ 100,00 até R$  149,00 ', value:'De-R$100,00-a-R$149,00' }, 
+             { label: 'De R$ 150,00 até R$  199,00 ', value:'De-R$150,00-a-R$199,00' }, 
+             { label: 'De R$ 200,00 até R$  249,00 ', value:'De-R$200,00-a-R$249,00' }, 
+             { label: 'De R$ 250,00 até R$  299,00 ', value:'De-R$250,00-a-R$299,00' }, 
+             { label: 'De R$ 300,00 até R$  349,00 ', value:'De-R$300,00-a-R$349,00' }, 
+             { label: 'De R$ 350,00 até R$  399,00 ', value:'De-R$350,00-a-R$399,00' }, 
+             { label: 'De R$ 400,00 até R$  449,00 ', value:'De-R$400,00-a-R$449,00' }, 
+             { label: 'De R$ 450,00 até R$  499,00 ', value:'De-R$450,00-a-R$499,00' }, 
+             { label: 'De R$ 500,00 até R$  549,00 ', value:'De-R$500,00-a-R$549,00' }, 
+             { label: 'De R$ 550,00 até R$  599,00 ', value:'De-R$550,00-a-R$599,00' }, 
+             { label: 'De R$ 600,00 até R$  649,00 ', value:'De-R$600,00-a-R$649,00' }, 
+             { label: 'De R$ 650,00 até R$  699,00 ', value:'De-R$650,00-a-R$699,00' }, 
+             { label: 'De R$ 700,00 até R$  749,00 ', value:'De-R$700,00-a-R$749,00' }, 
+             { label: 'De R$ 750,00 até R$  799,00 ', value:'De-R$750,00-a-R$799,00' }, 
+             { label: 'De R$ 800,00 até R$  849,00 ', value:'De-R$800,00-a-R$849,00' }, 
+             { label: 'De R$ 850,00 até R$  899,00 ', value:'De-R$850,00-a-R$899,00' }, 
+             { label: 'De R$ 900,00 até R$  949,00 ', value:'De-R$900,00-a-R$949,00' }, 
+             { label: 'De R$ 950,00 até R$ 1000,00 ', value:'De-R$950,00-a-R$1000,00'}, 
+             { label: ' OUTRO VALOR ',             value:'OUTRO-VALOR' }, 
 
             
           ]} 
         />
-      </View>
-        <Input
-        name="category"
-        placeholder="Informe a categoria"
-        value={category}
-        onChangeText = {setCategory}
+      </InputPicker>
+
+      <Label>Categoria</Label>
+      <InputPicker>
+       <TouchableOpacity
+        onPress={() => {
+           if (pickerRef.current) {
+             pickerRef.current.togglePicker(true)
+           }
+        }}>
+      </TouchableOpacity>
+      <RNPickerSelect
+          ref={r => pickerRef.current = r}
+          value={category}
+          placeholder={{ label: 'Selecione uma categoria: ', value: category }}
+          onValueChange={category => setCategory(category)}
+
+          items={[                       
+             { label: ' ACESSÓRIOS '       ,value:' ACESSÓRIOS '       },
+             { label: ' ELETRODOMÉSTICOS ' ,value:' ELETRODOMÉSTICOS ' }, 
+             { label: ' ELETRONICOS '      ,value:' ELETRONICOS '      }, 
+             { label: ' ESPORTE '          ,value:' ESPORTE '},  
+             { label: ' INSTRUMENTOS '     ,value:' INSTRUMENTOS '     }, 
+             { label: ' LIVROS E REVISTAS ',value:' LIVROS E REVISTAS '}, 
+             { label: ' MATERIAL ESCOLAR ' ,value:' MATERIAL ESCOLAR ' }, 
+             { label: ' MODA E BELEZA'     ,value:' MODA E BELEZA '    }, 
+             { label: ' MÓVEIS '           ,value:' MÓVEIS '           }, 
+             { label: ' ROUPAS E CALÇADOS ',value:' ROUPAS E CALÇADOS '},  
+             { label: ' OUTRA  CATEGORIA ' ,value:' OUTRA  CATEGORIA ' }, 
+          ]} 
         />
+      </InputPicker>
+      
+       
+
+      <Label>Descrição</Label>
         <InputLong
         name="description"
         placeholder="Descreva sobre seu Produto"
@@ -191,90 +237,10 @@ export default function AddItems() {
       <ButtonSend  onPress={handleCreateItem}>
         <ButtonText>Anunciar</ButtonText>
       </ButtonSend>
+      <Separator/>
 
       
-    </ScrollView>
+    </PlusScreen>
 </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-
-  title: {
-    color: '#5c8599',
-    fontSize: 24,
-    marginBottom: 32,
-    paddingBottom: 24,
-    borderBottomWidth: 0.8,
-    borderBottomColor: '#D3E2E6'
-  },
-
-  label: {
-    color: '#8fa7b3',
-    marginBottom: 8,
-  },
-
-  comment: {
-    fontSize: 11,
-    color: '#8fa7b3',
-  },
-
-  input: {
-    backgroundColor: '#fff',
-    borderWidth: 1.4,
-    borderColor: '#d3e2e6',
-    borderRadius: 20,
-    height: 56,
-    paddingVertical: 18,
-    paddingHorizontal: 24,
-    marginBottom: 16,
-    textAlignVertical: 'top',
-  },
-
-  uploadedImagesContainer:{
-    flexDirection: 'row',
-  },
-  uploadedImage:{
-    width: 64,
-    height: 64,
-    borderRadius: 20 ,
-    marginBottom: 32,
-    marginRight:8
-  },
-
-  imagesInput: {
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    borderStyle: 'dashed',
-    borderColor: '#96D2F0',
-    borderWidth: 1.4,
-    borderRadius: 20,
-    height: 56,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 32,
-  },
-
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 16,
-  },
-
-  nextButton: {
-    backgroundColor: '#15c3d6',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 56,
-    marginTop: 32,
-  },
-
-  nextButtonText: {
-    fontSize: 16,
-    color: '#FFF',
-  }
-})

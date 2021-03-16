@@ -77,13 +77,13 @@ const Tenders = ({navigation})=>{
                         return (
                             <>
                         <TendersPicture source={{ uri: image.url }} />
-                        <InfoTextBlack >{targedItem.item_id.name_item}</InfoTextBlack>
+                        {/* <InfoTextBlack > {targedItem.item_id.name_item}</InfoTextBlack> */}
                         </>
                         );
                         // }
                     })}
                 </TendersImage>
-             
+                <AntDesign name="retweet" size={90} color="black" />
                 <TendersImage>
                         {targedItem.targed_item_id.images.map((image) => {
                             
@@ -91,14 +91,14 @@ const Tenders = ({navigation})=>{
                             <View>
                             {/* //  key ={index} */}
                         <TendersPicture source={{ uri: image.url }} />
-                        <InfoTextBlack >{targedItem.targed_item_id.name_item}</InfoTextBlack>
+                        {/* <InfoTextBlack > {targedItem.targed_item_id.name_item}</InfoTextBlack> */}
                              </View>
                         );
                     
                     })}
                 </TendersImage>
 
-                <AntDesign name="retweet" size={100} color="black"style={{right: '85%'}} />
+                {/* <AntDesign name="retweet" size={90} color="black"style={{right: '110%'}} /> */}
 
  
                 </TendersBox> 

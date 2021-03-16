@@ -20,11 +20,21 @@ borderColor: #008b8b;
 border-radius:8px ;
 margin-vertical:30px;
 `
+export const ScreenLogin = styled(ScrollView)`
+padding-top:50px;
+flex: 1;
+backgroundColor: #008b8b;
+`
 export const BorderScreen= styled(ScrollView)`
 flex: 1;
 backgroundColor: #F5F5F5;
 border-width: 5px;
 border-color: #008B8B;
+`
+export const PlusScreen= styled(ScrollView)`
+flex: 1
+padding:20px;
+backgroundColor: #F5F5F5;
 `
 export const ScreenModal = styled(View)`
 background: #FFF;
@@ -34,11 +44,43 @@ border-width: 5px;
 border-color: #d3e2e6;
 height: 70%;
 `
+export const UploadedImagesContainer = styled(ScrollView)`
+flexDirection: row;
+`
+export const HeaderCuston = styled(View)`
+
+flexDirection: row;
+justifyContent: flex-start;
+
+`
+export const UploadedImage = styled(Image)`
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  margin-right:5px;
+`
+export const ImagesInput = styled(TouchableOpacity)`
+  backgroundColor: rgba(255, 255, 255, 0.5);
+  border-style: dashed;
+  border-color: #96D2F0;
+  border-width: 1.4px;
+  border-radius: 20px;
+  height: 56px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+`
+
+
 export const ImgItem = styled(Image)`
 border-width: 5px;
 height: 100px;
 width: 100px;
 resizeMode: cover;
+margin-bottom:50px;
+margin-top:10px;
+margin-left:10px;
 `
 export const ImgItem1 = styled(Image)`
 border-width: 5px;
@@ -61,6 +103,7 @@ flex-direction: row;
 backgroundColor: #008B8B;
 `
 
+
 export const ProfileBox = styled(View)`
 padding-vertical: 10%;
 padding-right: 10px;
@@ -78,20 +121,27 @@ borderColor: #999;
 border-radius:8px ;
 margin:10px;
 `
+// export const MineBox = styled(View)`
+// border-width:2px;
+// borderColor: #999;
+// border-radius:8px ;
+// margin:10px;
+// flex-direction: row;
+// align-items: center;
+// `
 export const MineBox = styled(View)`
+
 border-width:2px;
 borderColor: #999;
 border-radius:8px ;
 margin:10px;
-flex-direction: row;
-align-items: center;
 `
 
 export const MineImage = styled(View)`
-border-width:2px;
-borderColor: #999;
-border-radius:8px ;
-margin:3px;
+height: 100px;
+`
+export const MineImage2 = styled(View)`
+margin:10px;
 `
 export const ImageView = styled(View)`
 height: 200px;
@@ -102,7 +152,26 @@ background:#FFF;
 padding-horizontal: 20px;
 padding-vertical: 5px;
 `
+export const ComponentFilter = styled(View)`
+border-width:2px;
+borderColor: #999;
+border-radius:8px ;
+margin-top:10px;
+margin-horizontal: 30%;
+flex-direction: row;
+align-items: center;
+justifyContent: space-between;
+background:#FFF;
+`
+export const NameItemView = styled(View)`
+align-items: flex-end;
+`
 
+export const ProfilePicture = styled(View)`
+margin-left:10px;
+align-self: center;
+justifyContent: center;
+`
 export const ScrollItemBox = styled(ScrollView)`
 background: #FFF;
 `
@@ -117,7 +186,6 @@ padding-vertical: 10px;
 padding-horizontal: 24px;
 margin-bottom: 8px;
 height: 56px;
-font-weight: bold;
 font-size:18px;
 `
 export const InputLong = styled(TextInput)`
@@ -127,7 +195,7 @@ border-radius: 20px;
 border-width: 1.4px;
 border-color: #d3e2e6;
 padding: 40px;
-font-weight: bold;
+
 font-size:18px;
 `
 export const InputSearch = styled(TextInput)`
@@ -141,7 +209,7 @@ borderColor: #CCC;
 border-radius: 10px;
 `
 export const ButtonSend = styled(TouchableOpacity)`
-background: #008B8B;
+background: #3CDC8C;
 padding: 12px;
 border-radius: 8px;
 align-items: center;
@@ -190,6 +258,7 @@ fontWeight: bold;
 `
 
 export const InfoTextBlack = styled(Text)`
+padding:10px;
 font-size: 18px;
 color: #000;
 fontWeight: bold; 
@@ -199,6 +268,13 @@ font-size: 14px;
 color: #999;
 fontWeight: bold; 
 `
+export const TextNaN = styled(Text)`
+font-size: 20px;
+color: #999;
+fontWeight: bold;
+align-self: center;
+justifyContent: center;
+` 
 // ----------------------------------------------------------------------
 // DETAIS ITEM
 // ======================================================================
@@ -209,6 +285,11 @@ fontSize: 30px;
 fontWeight: bold;
 align-self: center; 
 `
+export const Label = styled(Text)`
+  color: #8fa7b3;
+  marginBottom: 5px;
+  fontWeight: bold;
+  `
 
 export const ImagesContainer = styled(View)`
 height: 250px;
@@ -231,6 +312,23 @@ export const ViewDetail = styled(View)`
 //------------------------------------------
 //    TENDERS
 //--------------------------------------------
+// export const TendersBox = styled(View)`
+// border-width:2px;
+// borderColor: #999;
+// border-radius:8px ;
+// margin:10px;
+// flex-direction: row;
+// background-color: #FFF;
+// justifyContent: center;
+// align-items: center; 
+// `
+// export const TendersImage = styled(View)`
+// justifyContent: center;
+// align-items: center; 
+// align-self: center; 
+// left:25%;
+// `
+
 export const TendersBox = styled(View)`
 border-width:2px;
 borderColor: #999;
@@ -239,26 +337,30 @@ margin:10px;
 flex-direction: row;
 background-color: #FFF;
 justifyContent: center;
-align-items: center; 
 `
 export const TendersImage = styled(View)`
-justifyContent: center;
-align-items: center; 
-align-self: center; 
-left:25%;
-
+margin:10px;
 `
+
 export const TendersImage2 = styled(View)`
 background: #ffc700;
 `
+
 export const TendersPicture = styled(Image)`
-margin:10px;
-height: 150px;
-width: 150px;
-resizeMode: cover;
-border-width:2px;
-borderColor: #999;
-`
+ height: 100px;
+ width: 100px;
+ resizeMode: cover;
+ border-width:2px;
+ borderColor: #999;
+ `
+// export const TendersPicture = styled(Image)`
+// margin:10px;
+// height: 100px;
+// width: 10px;
+// resizeMode: cover;
+// border-width:2px;
+// borderColor: #999;
+// `
 
 export const RecomandationButton = styled(RectButton)`
 padding:10px;
@@ -284,4 +386,16 @@ export const DescriptionText = styled(Text)`
 color: #5c8599;
 font-size: 22px;
 marginTop: 20px;
+`
+export const InputPicker = styled(View)`
+background: #FFF;
+color: #000;
+border-radius: 20px;
+border-width: 1.4px;
+border-color: #d3e2e6;
+padding-vertical: 2px;
+padding-horizontal: 24px;
+margin-bottom: 8px;
+height: 56px;
+
 `

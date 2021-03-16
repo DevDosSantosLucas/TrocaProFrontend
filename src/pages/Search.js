@@ -5,7 +5,7 @@ import {View,StyleSheet, ScrollView, TextInput,Image,Alert,
         Text,ActivityIndicator ,ImageStore,Dimensions,RefreshControl} from 'react-native';
 
 import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TextRecomandation,
-    ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,RecomandationButton,} from '../components'
+    TextNaN,ComponentFilter,ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,RecomandationButton,} from '../components'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import api from '../services/api';
@@ -112,18 +112,13 @@ export default function Search({  navigation }) {
             
             <RectButton onPress ={handleSelectFilterItem}>                       
 
-
-            <MineBox >
-               
+            <ComponentFilter>
+                <InfoTextBlack > Filtrar!</InfoTextBlack> 
+                <AntDesign name="down" size={35} color="black" />            
+            </ComponentFilter> 
             
-            <DescriptionView >
-                <InfoTextBlack >Nenhum item para filtrar!</InfoTextBlack>             
-            </DescriptionView>    
-            <AntDesign name="down" size={35} color="black" />
-            </MineBox>           
- 
-           
-        </RectButton>
+            <TextNaN> Nenhum item filtrado </TextNaN>              
+            </RectButton>
 
 
         <RecomandationButton onPress ={handleAlert}>

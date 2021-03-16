@@ -7,7 +7,7 @@ import { useFormik } from 'formik'
 import RNPickerSelect from 'react-native-picker-select'
 
 
-import{Loading,Screen,Img,LoginBox,Input,ButtonSend,ButtonText} from '../components'
+import{Separator,TitleItem,Label,InputPicker,HeaderCuston,Img,LoginBox,Input,ButtonSend,ButtonText, PlusScreen} from '../components'
 import {
   View,
   Text,
@@ -15,10 +15,10 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
-  Image,
+  Image,CheckBox,Alert,
 //   ActivityIndicator,
 } from 'react-native'
-
+import { AntDesign } from '@expo/vector-icons';
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { showMessage, hideMessage } from "react-native-flash-message";
@@ -36,23 +36,27 @@ export default function SignUp   ()  {
         const [password,setPassword] = useState('') ;
         const [uf,setUf] = useState('') ;
 
+        const [isSelected, setSelection] = useState(false);
+
         const pickerRef = React.useRef()
 
-  const navigation = useNavigation();
-  // const route = useRoute();
+        const navigation = useNavigation();
+        function handleTerms(){
+          Alert.alert('Temos de Uso',
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry'+
+          'Lorem Ipsum has been the industrys standard dummy text ever since the 1500s'+
+          ' when an unknown printer took a galley of type and scrambled it to make a type'+
+          ' specimen book. It has survived not only five centuries, but also the leap into'+
+          ' electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s'+
+          ' with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with'+
+          'desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum');
+      }
 
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     whatsapp: '',
-  //     name:'',
-  //     uf:'',
-  //     city:'',
-  //     password: '',
-  //   },
-
-    // onSubmit: async data => {
       async function handleSubmit() {
+        if(!isSelected){
+          Alert.alert('Ops','Precisa aceitar os Termos de uso para cadastrar!');
+          return
+        }
 
         try {
         const data = new FormData();
@@ -85,21 +89,37 @@ export default function SignUp   ()  {
       
     
     }}
+    function goBack() {
+      navigation.navigate("SignIn");
+    }
 
   return (
-    <Screen>
-      <LoginBox>
+    <>
+      <Text/>
+    <Separator/>
+    <HeaderCuston>
+      <TouchableOpacity onPress ={goBack}>
+    <AntDesign name="back" size={40} color="#008B8B" />
+    </TouchableOpacity>
+    <TitleItem>  Cadastrar</TitleItem>
+    </HeaderCuston>
+    <Separator/>
+
+      <PlusScreen>
         
+      <Label>Número do WhatsApp (Só números)</Label>
+
         <Input
           keyboardType={'numeric'}
           name="whatsapp"
-          placeholder="Digite seu whatsapp"
+          placeholder="ex : ( 5516999999999 )"
           value={whatsapp}
           onChangeText={setWhatsapp}
 
           // value={formik.values.whatsapp}
           // onChangeText={formik.handleChange('whatsapp')}
         />
+      <Label>Nome</Label>
 
         <Input
           name="name"
@@ -108,16 +128,10 @@ export default function SignUp   ()  {
           onChangeText={setName}/>
            {/* value={formik.values.name} */}
           {/*  onChangeText={formik.handleChange('name')} */}
-        
 
-        {/* <Input
-          name="uf"
-          placeholder="Digite seu estado"
-          value={formik.values.uf}
-          onChangeText={formik.handleChange('uf')}
-        /> */}
+      <Label>UF</Label>
 
-      <View>
+      <InputPicker>
        <TouchableOpacity onPress={() => {
            if (pickerRef.current) {
              pickerRef.current.togglePicker(true)
@@ -162,8 +176,8 @@ export default function SignUp   ()  {
             
           ]} 
         />
-      </View>
-
+      </InputPicker>
+      <Label>Cidade</Label>
         <Input
           name="city"
           placeholder="Digite sua cidade"
@@ -173,6 +187,7 @@ export default function SignUp   ()  {
           // value={formik.values.city}
           // onChangeText={formik.handleChange('city')}
         />
+      <Label>Senha</Label>
 
         <Input
           name="password"
@@ -185,16 +200,33 @@ export default function SignUp   ()  {
         />
 
         
+        <Separator/>
 
         {/* <ButtonSend onPress={formik.handleSubmit}> */}
+  
+         <HeaderCuston>
+        <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+        />
+        <TouchableOpacity onPress ={handleTerms}>
+        <Label>Termos de Uso(clique aqui!)</Label>
+        </TouchableOpacity>
+
+
+
+        </HeaderCuston>
+        <Separator/>
+
         <ButtonSend onPress={handleSubmit}>
-         
-            
        
             <ButtonText>CADASTRAR</ButtonText>
           
         </ButtonSend>
-      </LoginBox>
-    </Screen>
+               
+    <Separator/>
+
+      </PlusScreen>
+    </>
   )
 }

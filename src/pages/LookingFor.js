@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {View,StyleSheet, ScrollView, TextInput,Image,
         Text,ActivityIndicator ,ImageStore,Dimensions,RefreshControl} from 'react-native';
 
-import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TitleItem,
-    ImgItem1,ImageContainer, ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
+import {ImageBox1,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TitleItem,
+    ImgItem1,NameItemView,ImageContainer, ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView, Separator} from '../components'
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import Filter from './Filter'
@@ -30,7 +30,7 @@ export default function LookingFor({  navigation }) {
     const [isItemFound,setItemFound]= useState(false);
     
     const [targedItems,setTargedItems] = useState([]);
-    const [targedItem,setTargedItem] = useState([]);
+    // const [targedItem,setTargedItem] = useState([]);
 
     const route = useRoute();
     const params = route.params ;
@@ -53,11 +53,24 @@ export default function LookingFor({  navigation }) {
               );
           }
           if(item){
-            api.get(`items/showPrices/${user.user_id}/${item.price}`)
+
+            // const data = new FormData();
+            // data.append('user_id',user.user_id);
+            // data.append('price',item.price);
+            // console.log(data)
+            let user_id = user.user_id;
+            let price = item.price;
+            api.get(`items/showPrices/${user.user_id}/${item.price}`)///${user.city}`)
+            // api.get("/items/showPrices",{user_id,price})
+            // api.get("items/show?page=1")
+
+
             .then(response => {
             setTargedItems(response.data);
+            // console.log("XXXeeeeeXD:",targedItems)
+            
             }) 
-          }
+          
     
   
 
@@ -84,28 +97,27 @@ export default function LookingFor({  navigation }) {
         <TitleItem> Items Relacionados:</TitleItem>
         <MineBox >
            
-               {/* <MineImage>
-                   {item.images.map(image => {
-                   return (
-                   <ImgItem source={{ uri: image.url }} />
-                   );
-               })}
-              </MineImage> */}
+               
            
-           <DescriptionView >
+           <NameItemView >
                <InfoTextBlack >Selecionado:{item.name_item}</InfoTextBlack>
                
-           </DescriptionView>    
+           </NameItemView>    
            </MineBox>           
-      
+           <Separator />
+
+           
             <View>
+                
             { targedItems.map((targedItem) => (
-            <RectButton onPress ={()=>handleItem(targedItem.item_id)}>                       
+            <RectButton onPress ={()=>handleItem(targedItem.item_id)}>     
+                                  
                  <ImageBox key = {targedItem.item_id}>
+                     {/* <ImageBox1> */}
                     <ImageView>
                         {targedItem.images.map(image => {
                         return (
-                        <ImgItem1 source={{ uri: image.url }} />
+                        <ImgItem1 key ={image.image_id}source={{ uri: image.url }} />
                         );
                     })}
                 </ImageView>
@@ -116,7 +128,7 @@ export default function LookingFor({  navigation }) {
                         {targedItem.description}
                     </InfoTextGrey>
                 </DescriptionView>              
-    
+                {/* </ImageBox1> */}
                 </ImageBox> 
             </RectButton>
 
@@ -131,5 +143,6 @@ export default function LookingFor({  navigation }) {
      
     );
 
+}
 }
 
