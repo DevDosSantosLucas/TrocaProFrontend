@@ -11,7 +11,7 @@ import {useAuth} from '../contexts/auth';
 
 import api from '../services/api';
 
-import {InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,
+import {TenderBoxImages,ImageView,SearchBox,ScrollItemBox,MineBox,
     MineImage,TendersPicture,TendersImage,TendersImage2,
     ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,TendersBox} from '../components'
 
@@ -70,6 +70,7 @@ const Tenders = ({navigation})=>{
             <RectButton 
                 onPress ={()=>handleItem(targedItem.item_id.item_id,targedItem.targed_item_id.item_id)}>                       
                  <TendersBox key = {targedItem.item_id.item_id}>
+                     <TenderBoxImages>
                     <TendersImage>
                         {targedItem.item_id.images.map(image => {
                             // <View key ={index}></View>
@@ -83,7 +84,7 @@ const Tenders = ({navigation})=>{
                         // }
                     })}
                 </TendersImage>
-                <AntDesign name="retweet" size={90} color="black" />
+                <AntDesign name="retweet" size={90} color="black" style={{marginTop:'10%'}}/>
                 <TendersImage>
                         {targedItem.targed_item_id.images.map((image) => {
                             
@@ -100,7 +101,7 @@ const Tenders = ({navigation})=>{
 
                 {/* <AntDesign name="retweet" size={90} color="black"style={{right: '110%'}} /> */}
 
- 
+                </TenderBoxImages>
                 </TendersBox> 
             </RectButton>
 

@@ -12,7 +12,7 @@ import api from '../services/api';
 
 import {ButtonGreen,ViewDetail,InputSearch,ImageView,SearchBox,ScrollItemBox,MineBox,BorderScreen,ImageContainer,
   DescriptionText,MineImage,TendersPicture,TendersImage,TendersImage2,TitleItem,ImagesContainer,ButtonText,
-  Separator,ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,TendersBox} from '../components'
+  Separator,ViewRow,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView,TendersBox} from '../components'
 
 import { useAuth } from '../contexts/auth'
 
@@ -122,6 +122,7 @@ export default function ItemDetails({navigation}) {
           }
           
           <MineBox key = {item.item_id.item_id}>
+            <ViewRow>
                <MineImage>
                    {item.item_id.images.map(image => {
                    return (
@@ -133,7 +134,8 @@ export default function ItemDetails({navigation}) {
            <DescriptionView >
                <InfoTextBlack >{item.item_id.name_item}</InfoTextBlack>
                
-           </DescriptionView>    
+           </DescriptionView>   
+           </ViewRow> 
            </MineBox>  
   
 

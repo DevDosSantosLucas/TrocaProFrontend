@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {View,StyleSheet, ScrollView, TextInput,Image,
         Text,ActivityIndicator ,ImageStore,Dimensions,RefreshControl} from 'react-native';
 
-import {ImageBox1,ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TitleItem,
+import {ImageView,SearchBox,ScrollItemBox,MineBox,MineImage,TitleItem,
     ImgItem1,NameItemView,ImageContainer, ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView, Separator} from '../components'
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -52,7 +52,8 @@ export default function LookingFor({  navigation }) {
                      
               );
           }
-          if(item){
+         
+          
 
             // const data = new FormData();
             // data.append('user_id',user.user_id);
@@ -95,24 +96,21 @@ export default function LookingFor({  navigation }) {
         
         <ScrollItemBox >  
         <TitleItem> Items Relacionados:</TitleItem>
-        <MineBox >
-           
-               
-           
-           <NameItemView >
-               <InfoTextBlack >Selecionado:{item.name_item}</InfoTextBlack>
-               
-           </NameItemView>    
-           </MineBox>           
-           <Separator />
-
-           
             <View>
+            
                 
             { targedItems.map((targedItem) => (
+                <>
+                <MineBox >
+           <DescriptionView >
+               <InfoTextBlack >Selecionado:{'\n'}{item.name_item}</InfoTextBlack>
+           </DescriptionView>    
+           </MineBox> 
+           <Separator />
             <RectButton onPress ={()=>handleItem(targedItem.item_id)}>     
                                   
                  <ImageBox key = {targedItem.item_id}>
+                     
                      {/* <ImageBox1> */}
                     <ImageView>
                         {targedItem.images.map(image => {
@@ -120,8 +118,9 @@ export default function LookingFor({  navigation }) {
                         <ImgItem1 key ={image.image_id}source={{ uri: image.url }} />
                         );
                     })}
+                    
                 </ImageView>
-
+              
                 <DescriptionView >
                     <InfoTextBlack >{targedItem.name_item}</InfoTextBlack>
                     <InfoTextGrey numberOfLines = {1}>
@@ -131,7 +130,7 @@ export default function LookingFor({  navigation }) {
                 {/* </ImageBox1> */}
                 </ImageBox> 
             </RectButton>
-
+            </>
             ))}
 
         </View>
@@ -143,6 +142,6 @@ export default function LookingFor({  navigation }) {
      
     );
 
-}
+
 }
 

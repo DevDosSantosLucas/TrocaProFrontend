@@ -7,7 +7,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 
 import * as ImagePicker from 'expo-image-picker';
 import api from '../services/api';
-import{ScreenModal,Screen,Img,LoginBox,Input,ButtonSend,
+import{ScreenModal,ViewRow,Img,LoginBox,Input,ButtonSend,
       MineBox,MineImage,ButtonText,OpacityButton} from '../components'
 import {useAuth} from '../contexts/auth';
 import RNPickerSelect ,{Picker }from 'react-native-picker-select'
@@ -76,6 +76,7 @@ export default function Filter() {
      <RectButton onPress ={()=>handleFilterItem(item.item_id)}>                       
             
          <MineBox key = {item.item_id}>
+           <ViewRow>
              <MineImage>
                  {item.images.map(image => {
                  return (
@@ -90,7 +91,8 @@ export default function Filter() {
          <NameItemView >
              <InfoTextBlack >{item.name_item}</InfoTextBlack>
              
-         </NameItemView>    
+         </NameItemView> 
+         </ViewRow>   
          </MineBox>           
 
         

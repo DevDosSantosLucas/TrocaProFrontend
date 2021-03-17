@@ -74,21 +74,23 @@ export const ImagesInput = styled(TouchableOpacity)`
 
 
 export const ImgItem = styled(Image)`
-border-width: 5px;
+padding:10px;
 height: 100px;
 width: 100px;
 resizeMode: cover;
 margin-bottom:50px;
 margin-top:10px;
 margin-left:10px;
+borderColor: #999;
+border-radius:8px ;
+border-width: 2px;
 `
 export const ImgItem1 = styled(Image)`
-border-width: 5px;
 height: 200px;
 width: 200px;
 resizeMode: cover;
 align-self: center;
-
+margin-bottom:100px;
 `
 export const LoginBox = styled(View)`
 flex: 1;
@@ -102,7 +104,9 @@ padding-top: 10%;
 flex-direction: row;
 backgroundColor: #008B8B;
 `
-
+export const ViewRow = styled(View)`
+flex-direction: row;
+`
 
 export const ProfileBox = styled(View)`
 padding-vertical: 10%;
@@ -121,16 +125,9 @@ borderColor: #999;
 border-radius:8px ;
 margin:10px;
 `
-// export const MineBox = styled(View)`
-// border-width:2px;
-// borderColor: #999;
-// border-radius:8px ;
-// margin:10px;
-// flex-direction: row;
-// align-items: center;
-// `
-export const MineBox = styled(View)`
 
+export const MineBox = styled(View)`
+backgroundColor: #FFF;
 border-width:2px;
 borderColor: #999;
 border-radius:8px ;
@@ -139,6 +136,7 @@ margin:10px;
 
 export const MineImage = styled(View)`
 height: 100px;
+margin-bottom:5%;
 `
 export const MineImage2 = styled(View)`
 margin:10px;
@@ -148,6 +146,7 @@ height: 200px;
 `
 
 export const DescriptionView = styled(View)`
+flex:1;
 background:#FFF;
 padding-horizontal: 20px;
 padding-vertical: 5px;
@@ -163,8 +162,10 @@ align-items: center;
 justifyContent: space-between;
 background:#FFF;
 `
+
 export const NameItemView = styled(View)`
-align-items: flex-end;
+align-self: center;
+flex:1;
 `
 
 export const ProfilePicture = styled(View)`
@@ -329,6 +330,13 @@ export const ViewDetail = styled(View)`
 // left:25%;
 // `
 
+// export const ImageBox = styled(View)`
+// border-width:2px;
+// borderColor: #999;
+// border-radius:8px ;
+// margin:10px;
+// `
+
 export const TendersBox = styled(View)`
 border-width:2px;
 borderColor: #999;
@@ -336,10 +344,19 @@ border-radius:8px ;
 margin:10px;
 flex-direction: row;
 background-color: #FFF;
-justifyContent: center;
+`
+
+
+
+export const TenderBoxImages = styled(View)`
+height: 150px;
+flex-direction: row;
 `
 export const TendersImage = styled(View)`
+padding-top:30%;
 margin:10px;
+ align-items: center; 
+justifyContent: center;
 `
 
 export const TendersImage2 = styled(View)`
@@ -352,6 +369,7 @@ export const TendersPicture = styled(Image)`
  resizeMode: cover;
  border-width:2px;
  borderColor: #999;
+ margin-bottom:100px;
  `
 // export const TendersPicture = styled(Image)`
 // margin:10px;

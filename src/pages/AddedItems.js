@@ -4,7 +4,7 @@ import {View,Button,StyleSheet,Text} from 'react-native';
 import api from '../services/api'
 import {useAuth} from '../contexts/auth';
 
-import {ImageView,ScrollItemBox,MineBox,MineImage,ImgItem1,MineImage2,
+import {ViewRow,ScrollItemBox,MineBox,MineImage,ImgItem1,MineImage2,
     NameItemView,ImageBox,ImgItem,InfoTextBlack,InfoTextGrey,DescriptionView} from '../components'
 import {  RectButton } from 'react-native-gesture-handler';
 const styles = StyleSheet.create({
@@ -56,27 +56,26 @@ const AddedItems = ({navigation})=>{
 
            {/* <MineBox > */}
            <MineBox key = {item.item_id}>
-           
+           <ViewRow>
                <MineImage>
-                   {/* <MineImage2> */}
+                   
                    {item.images.map(image => {
                    return (
                        <>
-                   <ImgItem key = {image.url}source={{ uri: image.url }} />
-                   {/* <NameItemView >
-               <InfoTextBlack >{item.name_item}</InfoTextBlack>
-           </NameItemView>   */}
-           </>
+                        <ImgItem key = {image.url}source={{ uri: image.url }} />
+                      </>
                    );
                })}
-                {/* </MineImage2> */}
+            
               </MineImage>
            
            <NameItemView >
                <InfoTextBlack >{item.name_item}</InfoTextBlack>
-           </NameItemView>    
-           </MineBox>           
+           </NameItemView>  
 
+           </ViewRow>  
+           </MineBox>           
+         
           
        </RectButton>
 
